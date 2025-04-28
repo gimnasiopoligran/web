@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrador - Gimnasio Poligran</title>
+    <!-- Estilos y fuentes -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+</head>
+<body>
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <a href="index.html" class="logo"><em>Gimnasio Poligran</em></a>
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="index.html">Volver al Inicio</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Login Administrador ***** -->
+    <section class="section" id="admin-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                        <h2>Login <em>Administrador</em></h2>
+                        <img src="assets/images/line-dec.png" alt="">
+                        <p>Ingresa tus credenciales de administrador.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <form id="admin-login-form">
+                            <div class="form-group">
+                                <input type="text" id="admin-username" placeholder="Usuario Administrador" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="admin-password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="main-button">Iniciar Sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; 2025 - Realizado por Grupo Politecnico Grancolombiano</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <!-- Script para manejar el login del administrador -->
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const adminUsername = document.getElementById('admin').value;
+            const adminPassword = document.getElementById('admin').value;
+
+            fetch('assets/users.json')
+                .then(response => response.json())
+                .then(data => {
+                    const admin = data.users.find(user => user.username === adminUsername && user.password === adminPassword && user.role === 'admin');
+                    if (admin) {
+                        localStorage.setItem('admin', JSON.stringify(admin));
+                        window.location.href = 'verusuarios.html';
+                    } else {
+                        alert('Credenciales incorrectas. Solo el administrador puede acceder.');
+                    }
+                })
+                .catch(() => {
+                    alert('Error al cargar los usuarios.');
+                });
+        });
+    </script>
+</body>
+</html>

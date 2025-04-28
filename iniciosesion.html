@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Gimnasio Poligran</title>
+    <!-- Estilos y fuentes -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-training-studio.css">
+</head>
+<body>
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <a href="index.html" class="logo"><em> Gimnasio Poligran</em></a>
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="index.html">Volver al Inicio</a></li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Inicio de Sesión ***** -->
+    <section class="section" id="login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                        <h2>Iniciar <em>Sesión</em></h2>
+                        <img src="assets/images/line-dec.png" alt="">
+                        <p>Ingresa tus credenciales para acceder a tu cuenta.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <form id="login-form">
+                            <div class="form-group">
+                                <input type="text" id="username" placeholder="Usuario" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="password" placeholder="Contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="main-button">Iniciar Sesión</button>
+                            </div>
+                            <div class="form-group">
+                                <a href="register.html">¿No tienes cuenta? Regístrate aquí</a>
+                            </div>
+							<div class="form-group">
+                                <a href="adminlogin.html">Ingresar como Administrador</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; 2025 - Realizado por Grupo Politecnico Grancolombiano</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/imgfix.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+    <!-- Script para manejar el inicio de sesión -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('assets/users.json')
+                .then(response => response.json())
+                .then(data => {
+                    const user = data.users.find(u => u.username === username && u.password === password);
+                    if (user) {
+                        alert('Inicio de sesión exitoso.');
+                        window.location.href = 'index.html'; // Redirigir a la página principal
+                    } else {
+                        alert('Usuario o contraseña incorrectos. Serás redirigido al registro.');
+                        window.location.href = 'register.html';
+                    }
+                })
+                .catch(() => {
+                    alert('No te encuentras registrado, te invitamos a que realices el registro.');
+                    window.location.href = 'register.html';
+                });
+        });
+    </script>
+</body>
+</html>
